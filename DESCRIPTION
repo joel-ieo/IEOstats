@@ -4,13 +4,26 @@ Title: What the Package Does (Title Case)
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
+      given = "Joel", 
+      family = "Morales",
+      email = "jmarcelo.morales@ieo.csic.es",
+      role = c("aut")
+    ),
+    person(
+      given = "Adriana", 
+      family = "Nogueira",
+      email = "adriana.nogueira@ieo.csic.es",
+      role = c("aut")
+    ),
+    person(
+      given = "Lizeth", 
+      family = "Rubio",
+      email = "",
+      role = c("aut")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Maintainer: Joel Morales Chavez <jmarcelo.morales@ieo.csic.es>
+Description: Statistical methods and tools for scientific data analysis.
+License: LGPL-3
 Encoding: UTF-8
 LazyData: true
