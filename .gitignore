@@ -1,5 +1,9 @@
-.Rproj.user
 .Rhistory
 .RData
 .Ruserdata
-.positai
+.Rproj.user/
+*.Rcheck/
+*.tar.gz
+*.so
+*.o
+*.dll
