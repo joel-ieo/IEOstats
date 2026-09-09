@@ -1,13 +1,13 @@
 Package: IEOstats
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Statistical Tools for Scientific Data Analysis
 Version: 0.1.0
 Authors@R: c(
     person(
       given = "Joel", 
       family = "Morales",
       email = "jmarcelo.morales@ieo.csic.es",
-      role = c("aut")
+      role = c("aut", "cre")
     ),
     person(
       given = "Adriana", 
@@ -18,12 +18,20 @@ Authors@R: c(
     person(
       given = "Lizeth", 
       family = "Rubio",
-      email = "",
       role = c("aut")
     )
   )
 Maintainer: Joel Morales Chavez <jmarcelo.morales@ieo.csic.es>
 Description: Statistical methods and tools for scientific data analysis.
-License: LGPL-3
+License: GPL-3
 Encoding: UTF-8
-LazyData: true
+LazyData: false
+Imports: 
+    data.table,
+    ggplot2,
+    future,
+    future.apply
+Config/roxygen2/version: 8.1.0
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

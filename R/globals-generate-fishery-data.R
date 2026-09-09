@@ -1,0 +1,13 @@
+utils::globalVariables(c(
+  ".N",
+  "FOid",
+  "FTid",
+  "FishingArea",
+  "Fleet",
+  "Quarter",
+  "SAid",
+  "SAspeCodeFAO",
+  "SAtotalWtLive",
+  "SScatchFra",
+  "Year"
+))
