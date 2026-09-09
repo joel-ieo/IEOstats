@@ -386,8 +386,8 @@ svy_total <- function(
       var_result <- res_bootstrapped[, .(
         estimated_total   = mean(y_hat, na.rm = TRUE),
         variance_total    = var(y_hat, na.rm = TRUE),
-        LC                = quantile(y_hat, 1 - alpha / 2, na.rm = TRUE),
-        UC                = quantile(y_hat, alpha / 2, na.rm = TRUE)
+        LC                = quantile(y_hat, alpha / 2, na.rm = TRUE),
+        UC                = quantile(y_hat, 1 - alpha / 2, na.rm = TRUE)
       ), by                 = vars_strata
       ]
     }
