@@ -16,21 +16,43 @@ rs_boot_iteration(
 )
 }
 \arguments{
-\item{data}{A data table or data frame with the sampling records.}
+\item{data}{A data table or data frame with the sampling records.
+For example, `data = survey_data`.}
 
-\item{ids}{A formula or character vector defining the cluster IDs for each stage.}
+\item{ids}{A formula or character vector defining the cluster IDs for each stage.
+Variables must be ordered from the first sampling stage to the last.
+For example, `ids = ~ PSUid + SSUid` or
+`ids = c("PSUid", "SSUid")`.}
 
-\item{y}{A formula or character vector specifying the target variable to estimate.}
+\item{y}{A formula or character vector specifying the target variable to estimate.
+For example, `y = ~ TargetVar` or
+`y = "TargetVar"`.}
 
-\item{strata}{A formula or character vector indicating the stratification variables.}
+\item{strata}{A formula or character vector indicating the stratification variables.
+Use `NULL` if the sampling design is not stratified.
+For example, `strata = ~ Year + Sector + Area + Quarter`,
+`strata = c("Year", "Sector", "Area", "Quarter")`, or
+`strata = NULL`.}
 
-\item{N}{A formula or character vector for population sizes at each stage.}
+\item{N}{A formula or character vector for population sizes at each stage.
+Variables must be provided in the same stage order as in `ids`.
+For example, `N = ~ N_PSU + N_SSU` or
+`N = c("N_PSU", "N_SSU")`.}
 
-\item{n}{A formula or character vector for sample sizes at each stage.}
+\item{n}{A formula or character vector for sample sizes at each stage.
+Variables must be provided in the same stage order as in `ids`.
+For example, `n = ~ n_PSU + n_SSU` or
+`n = c("n_PSU", "n_SSU")`.}
 
-\item{filter}{A character string with a condition to subset the data.}
+\item{filter}{A character string with a condition to subset the data.
+Use `NULL` to retain all observations.
+For example, `filter = "Sector == 'A'"` or `filter = NULL`.}
 
-\item{additional_col}{A formula or character vector of extra columns to keep.}
+\item{additional_col}{A formula or character vector of extra columns to keep.
+Use `NULL` if no additional variables are required.
+For example, `additional_col = ~ ExtraVar1 + ExtraVar2`,
+`additional_col = c("ExtraVar1", "ExtraVar2")`, or
+`additional_col = NULL`.}
 }
 \value{
 A data table with the randomized bootstrap estimates (y_hat) grouped by strata.
@@ -42,6 +64,14 @@ across all sample stages to calculate randomized totals by strata.
 }
 \examples{
 \dontrun{
+Generate a reproducible synthetic two-stage fishery sample
+fishery_data <- generate_fishery_data(
+  seed = 123,
+  trip_range = c(15, 20),
+  operation_range = c(3, 5)
+)
+
+
 rs_boot_iteration(
   data   = fishery_data,
   ids    = ~ FTid + FOid,

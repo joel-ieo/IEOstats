@@ -7,11 +7,19 @@
 mark_multistage(data, ids = NULL, strata = NULL)
 }
 \arguments{
-\item{data}{A data table or data frame containing sampling records.}
+\item{data}{A data table or data frame containing sampling records.
+For example, `data = survey_data`.}
 
-\item{ids}{A formula or character vector defining the multi-stage cluster variables.}
+\item{ids}{A formula or character vector defining the multi-stage cluster variables.
+Variables must be ordered from the first sampling stage to the last.
+For example, `ids = ~ PSUid + SSUid` or
+`ids = c("PSUid", "SSUid")`.}
 
-\item{strata}{A formula or character vector indicating the stratification variables.}
+\item{strata}{A formula or character vector indicating the stratification variables.
+Use `NULL` if the sampling design is not stratified.
+For example, `strata = ~ Year + Sector + Area + Quarter`,
+`strata = c("Year", "Sector", "Area", "Quarter")`, or
+`strata = NULL`.}
 }
 \value{
 A modified data table containing original data and delta flag columns by stratum.
@@ -23,6 +31,13 @@ across multi-stage sampling levels.
 }
 \examples{
 \dontrun{
+Generate a reproducible synthetic two-stage fishery sample
+fishery_data <- generate_fishery_data(
+  seed = 123,
+  trip_range = c(15, 20),
+  operation_range = c(3, 5)
+)
+
 mark_multistage(
   data   = fishery_data,
   ids    = ~ FTid + FOid,

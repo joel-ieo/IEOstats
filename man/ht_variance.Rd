@@ -7,17 +7,33 @@
 ht_variance(data, ids = NULL, y = NULL, strata = NULL, N = NULL, n = NULL)
 }
 \arguments{
-\item{data}{A data table or data frame containing fishery sampling records.}
+\item{data}{A data table or data frame containing the survey sampling records.
+For example, `data = survey_data`.}
 
-\item{ids}{A formula or character vector defining multi-stage clusters.}
+\item{ids}{A formula or character vector defining multi-stage clusters.
+Variables must be ordered from the first sampling stage to the last.
+For example, `ids = ~ PSUid + SSUid` or
+`ids = c("PSUid", "SSUid")`.}
 
-\item{y}{A formula or character vector specifying the target analysis variable.}
+\item{y}{A formula or character vector specifying the target analysis variable.
+For example, `y = ~ TargetVar` or
+`y = "TargetVar"`.}
 
-\item{strata}{A formula or character vector indicating stratification groups.}
+\item{strata}{A formula or character vector indicating stratification groups.
+Use `NULL` if the sampling design is not stratified.
+For example, `strata = ~ Year + Sector + Area + Quarter`,
+`strata = c("Year", "Sector", "Area", "Quarter")`, or
+`strata = NULL`.}
 
-\item{N}{A formula or character vector of population sizes per stage.}
+\item{N}{A formula or character vector of population sizes per stage.
+Variables must be provided in the same stage order as in `ids`.
+For example, `N = ~ N_PSU + N_SSU` or
+`N = c("N_PSU", "N_SSU")`.}
 
-\item{n}{A formula or character vector of sample sizes per stage.}
+\item{n}{A formula or character vector of sample sizes per stage.
+Variables must be provided in the same stage order as in `ids`.
+For example, `n = ~ n_PSU + n_SSU` or
+`n = c("n_PSU", "n_SSU")`.}
 }
 \value{
 A data table containing analytical variances grouped by strata.
@@ -28,6 +44,13 @@ classical Horvitz-Thompson method across complex multi-stage sampling designs.
 }
 \examples{
 \dontrun{
+Generate a reproducible synthetic two-stage fishery sample
+fishery_data <- generate_fishery_data(
+  seed = 123,
+  trip_range = c(15, 20),
+  operation_range = c(3, 5)
+)
+
 ht_variance(
   data   = fishery_data,
   ids    = ~ FTid + FOid,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/svy_total.R
 \name{svy_total}
 \alias{svy_total}
-\title{#' Estimation of Population Totals and Variances}
+\title{Estimation of Population Totals and Variances}
 \usage{
 svy_total(
   data,
@@ -190,8 +190,7 @@ estimates_landed <- svy_total(
   plot = FALSE,
   seed = 123,
   alpha = 0.05,
-  parallel = FALSE,
-  cores = 1
+  parallel = FALSE
 )
 
 estimates_landed
