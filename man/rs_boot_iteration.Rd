@@ -60,7 +60,7 @@ A data table with the randomized bootstrap estimates (y_hat) grouped by strata.
 \description{
 Executes a single bootstrap iteration using the multistage rescaled
 bootstrap method (Preston, 2009). Sampling weights and scale factors are adjusted
-across all sample stages to calculate randomized totals by strata.
+across all sample stages to calculate randomized totals by stratum.
 }
 \examples{
 \dontrun{

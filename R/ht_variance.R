@@ -2,12 +2,12 @@
 #'
 #' @description
 #' Computes analytical population totals and variance estimates using the
-#' classical Horvitz-Thompson method across complex multi-stage sampling designs.
+#' classical Horvitz-Thompson method across complex multistage sampling designs.
 #'
 #' @param data A data table or data frame containing the survey sampling records.
 #'   For example, `data = survey_data`.
 #'
-#' @param ids A formula or character vector defining multi-stage clusters.
+#' @param ids A formula or character vector defining multistage clusters.
 #'   Variables must be ordered from the first sampling stage to the last.
 #'   For example, `ids = ~ PSUid + SSUid` or
 #'   `ids = c("PSUid", "SSUid")`.
@@ -32,7 +32,7 @@
 #'   For example, `n = ~ n_PSU + n_SSU` or
 #'   `n = c("n_PSU", "n_SSU")`.
 #'
-#' @returns A data table containing analytical variances grouped by strata.
+#' @returns A data table containing analytical variance estimates grouped by stratum.
 #'
 #' @examples
 #' \dontrun{
@@ -122,7 +122,7 @@ ht_variance <- function(data, ids = NULL, y = NULL, strata = NULL, N = NULL, n =
     )
 
     if (r == length(vars_ids)) {
-      # Final stage calculations (sample variance and stage totals)
+      # Final stage calculations: sample variance and stage totals
       stages[[r]] <- data[, {
         n <- get(vars_n[r])[1]
         N <- get(vars_N[r])[1]
@@ -142,7 +142,7 @@ ht_variance <- function(data, ids = NULL, y = NULL, strata = NULL, N = NULL, n =
       stages[[r]][, variance_total := (N^2) * (1 - f) * (s2 / n)]
 
     } else {
-      # Intermediate stages calculations (inheriting variance from lower stages)
+      # Intermediate stages calculation: propagate variance from lower stages
       stages[[r]] <- stages[[r+1]][, {
         n <- get(vars_n[r])[1]
         N <- get(vars_N[r])[1]
@@ -169,7 +169,7 @@ ht_variance <- function(data, ids = NULL, y = NULL, strata = NULL, N = NULL, n =
   cols_to_keep <- c(vars_strata, "variance_total")
   cols_to_drop <- setdiff(names(stages[[1]]), cols_to_keep)
 
-  # Clean up and retain only the final variance results grouped by strata
+  # Clean up intermediate results and retain final variance estimates by stratum
   if (length(cols_to_drop) > 0) {
     stages[[1]][, (cols_to_drop) := NULL]
   }

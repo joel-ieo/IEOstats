@@ -10,7 +10,7 @@ ht_variance(data, ids = NULL, y = NULL, strata = NULL, N = NULL, n = NULL)
 \item{data}{A data table or data frame containing the survey sampling records.
 For example, `data = survey_data`.}
 
-\item{ids}{A formula or character vector defining multi-stage clusters.
+\item{ids}{A formula or character vector defining multistage clusters.
 Variables must be ordered from the first sampling stage to the last.
 For example, `ids = ~ PSUid + SSUid` or
 `ids = c("PSUid", "SSUid")`.}
@@ -36,11 +36,11 @@ For example, `n = ~ n_PSU + n_SSU` or
 `n = c("n_PSU", "n_SSU")`.}
 }
 \value{
-A data table containing analytical variances grouped by strata.
+A data table containing analytical variance estimates grouped by stratum.
 }
 \description{
 Computes analytical population totals and variance estimates using the
-classical Horvitz-Thompson method across complex multi-stage sampling designs.
+classical Horvitz-Thompson method across complex multistage sampling designs.
 }
 \examples{
 \dontrun{

@@ -10,7 +10,7 @@ mark_multistage(data, ids = NULL, strata = NULL)
 \item{data}{A data table or data frame containing sampling records.
 For example, `data = survey_data`.}
 
-\item{ids}{A formula or character vector defining the multi-stage cluster variables.
+\item{ids}{A formula or character vector defining the multistage cluster variables.
 Variables must be ordered from the first sampling stage to the last.
 For example, `ids = ~ PSUid + SSUid` or
 `ids = c("PSUid", "SSUid")`.}
@@ -27,7 +27,7 @@ A modified data table containing original data and delta flag columns by stratum
 \description{
 Prepares the dataset for the rescaled bootstrap method by validating cluster
 variables and generating random hierarchical perturbation indicators (delta flags)
-across multi-stage sampling levels.
+across multistage sampling levels.
 }
 \examples{
 \dontrun{

@@ -3,7 +3,7 @@
 #' @description
 #' Executes a single bootstrap iteration using the multistage rescaled
 #' bootstrap method (Preston, 2009). Sampling weights and scale factors are adjusted
-#' across all sample stages to calculate randomized totals by strata.
+#' across all sample stages to calculate randomized totals by stratum.
 #'
 #' @param data A data table or data frame with the sampling records.
 #'   For example, `data = survey_data`.
@@ -99,7 +99,7 @@ rs_boot_iteration <- function(data, ids = NULL, y = NULL, strata = NULL, N = NUL
   length_n   <- length(vars_n)
   length_N   <- length(vars_N)
 
-  # Check that sample sizes (n) and population sizes (N) match in number of stages
+  # Check that sample sizes (n) and population sizes (N) have the same number of stages
   if (length_n != length_N) {
     stop(sprintf("Consistency Error: 'n' has %d variables but 'N' has %d variables.", length_n, length_N))
   }

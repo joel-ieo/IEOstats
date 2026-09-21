@@ -6,7 +6,7 @@
 #' classical Horvitz-Thompson analytical estimator or a multistage rescaled
 #' bootstrap approach.
 #'
-#' The function supports stratified and multistage sampling designs. Sampling
+#' The function supports stratified and multistage survey sampling designs. Sampling
 #' units, analysis variables, strata, sample sizes, and population sizes can be
 #' specified using formulas or character vectors.
 #'
@@ -338,12 +338,12 @@ svy_total <- function(
     # Apply filtering condition if provided
     data_filter <- if (!is.null(filter)) data[eval(parse(text = filter))] else data.table::copy(data)
 
-    # Execute classical Horvitz-Thompson variance if selected
+    # Estimate classical Horvitz-Thompson variance if selected
     if("ht" %in% method){
       var_result <- ht_variance(data_filter, ids, y, strata, N, n)
     }
 
-    # Execute rescaled bootstrap iterations sequentially or in parallel
+    # Run rescaled bootstrap iterations sequentially or in parallel
     if("rs_boot" %in% method){
 
       if (isTRUE(parallel)) {
@@ -392,7 +392,7 @@ svy_total <- function(
       ]
     }
 
-    # Compute Horvitz-Thompson expansion totals by strata
+    # Compute Horvitz-Thompson expansion estimates by stratum
     expansion_terms <- paste0("(", vars_N, " / ", vars_n, ")")
     expr_text <- paste(c(var_y, expansion_terms), collapse = " * ")
     expr_parsed <- parse(text = expr_text)
@@ -400,7 +400,7 @@ svy_total <- function(
 
     final_result <- if (length(vars_strata)) merge(total_result, var_result, by = vars_strata) else cbind(total_result, var_result)
 
-    # Calculate parametric confidence limits if classical method is chosen
+    # Calculate parametric confidence limits if classical method is selected
     if("ht" == method){
       final_result[, `:=`(
         LC = ht_total - qt(1 - alpha / 2, nrow(data) - 1) * sqrt(variance_total),

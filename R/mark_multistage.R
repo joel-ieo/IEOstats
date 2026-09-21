@@ -3,12 +3,12 @@
 #'@description
 #' Prepares the dataset for the rescaled bootstrap method by validating cluster
 #' variables and generating random hierarchical perturbation indicators (delta flags)
-#' across multi-stage sampling levels.
+#' across multistage sampling levels.
 #'
 #' @param data A data table or data frame containing sampling records.
 #'   For example, `data = survey_data`.
 #'
-#' @param ids A formula or character vector defining the multi-stage cluster variables.
+#' @param ids A formula or character vector defining the multistage cluster variables.
 #'   Variables must be ordered from the first sampling stage to the last.
 #'   For example, `ids = ~ PSUid + SSUid` or
 #'   `ids = c("PSUid", "SSUid")`.
@@ -79,7 +79,7 @@ mark_multistage <- function(data, ids = NULL, strata = NULL) {
   # Initialize delta flag columns with zeros for each stage
   for (id in vars_ids) data.table::set(data, j = paste0("delta_", id), value = 0L)
 
-  # Iteratively select primary and nested sampling units respecting strata groups
+  # Iteratively select primary and nested sampling units within strata
   for (i in seq_along(vars_ids)) {
     current_level <- vars_ids[i]
     current_flag  <- paste0("delta_", current_level)
@@ -87,7 +87,7 @@ mark_multistage <- function(data, ids = NULL, strata = NULL) {
     by_cols <- if (length(current_grouping) > 0) current_grouping else NULL
 
     if (i == 1) {
-      # First stage: randomly select about half of the units within each stratum group
+      # First stage: randomly select approximately half of the units within each stratum
       data[, (current_flag) := {
         units <- unique(get(current_level))
         n_sel <- max(1L, length(units) %/% 2L)

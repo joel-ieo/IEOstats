@@ -115,7 +115,7 @@ complex survey samples. Estimation can be performed using either the
 classical Horvitz-Thompson analytical estimator or a multistage rescaled
 bootstrap approach.
 
-The function supports stratified and multistage sampling designs. Sampling
+The function supports stratified and multistage survey sampling designs. Sampling
 units, analysis variables, strata, sample sizes, and population sizes can be
 specified using formulas or character vectors.
 }

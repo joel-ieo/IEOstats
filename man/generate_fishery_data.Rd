@@ -49,7 +49,7 @@ the following variables:
 \description{
 Creates a synthetic fishery survey dataset with a two-stage sampling
 structure (Fishing Trips and Fishing Operations), suitable for testing
-variance estimators such as Horvitz-Thompson and rescaled bootstrap.
+variance estimators such as Horvitz-Thompson estimator and rescaled bootstrap.
 }
 \examples{
 fishery_data <- generate_fishery_data()
